@@ -7,11 +7,9 @@ function solution(N, stages) {
     let len = stages.length;
     
     for (let i = 1; i <= N; i++) {
-        let user = stages.filter(stage => stage === i);     
-        let fail = user.length / len;
+        let user = stages.filter(stage => stage === i);    
 
-        arr.push([fail, i]);
- 
+        arr.push([user.length / len, i]);
         len -= user.length;
     }
  
