@@ -15,5 +15,5 @@ function solution(board)
         }
     }
     
-    return answer ** 2;
+    return answer ** 2
 }
