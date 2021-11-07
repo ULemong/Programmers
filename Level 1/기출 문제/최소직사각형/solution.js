@@ -21,3 +21,14 @@ function solution(sizes) {
     
     return Math.max(max_w) * Math.max(max_h);
 }
+
+/* another solution */
+// 가독성은 더 좋으나 TC 실행 시간이 더 오래걸린다.
+function solution(sizes) {
+    sizes.map(arr => arr.sort((x, y) => y - x));
+    
+    let w = sizes.map(x => x[0]);
+    let h = sizes.map(x => x[1]);
+    
+    return Math.max(...w) * Math.max(...h);
+}
