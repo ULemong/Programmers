@@ -1,7 +1,6 @@
 function solution(n, arr1, arr2) {
   let answer = [];
 
-  
   for (let i = 0; i < n; i++) {
       let result = '';
       
