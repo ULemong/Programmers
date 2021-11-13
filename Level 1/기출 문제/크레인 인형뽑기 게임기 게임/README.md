@@ -26,6 +26,8 @@ function solution(board, moves) {
 }
 ```
 
+<br>
+
 ### solution_2) 2중 for문 사용
 ```javascript
 function solution(board, moves) {
