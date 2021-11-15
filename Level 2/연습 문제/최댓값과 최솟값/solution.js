@@ -9,6 +9,6 @@ function solution(s) {
 function solution(s) {
     const arr = s.split(' ');
     
-    // string 자료형도 Math.min, Math.min 메서드 사용 가능
+    // string 자료형도 Math.min, Math.max 메서드 사용 가능
     return (Math.min(...arr) + ' ' + Math.max(...arr));
 }
