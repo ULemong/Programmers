@@ -27,5 +27,5 @@ function solution(tickets) {
 
   dfs("ICN", 0);
 
-  return result
+  return result;
 }
