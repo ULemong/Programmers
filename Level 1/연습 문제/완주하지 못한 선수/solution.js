@@ -1,20 +1,18 @@
 function solution(participant, completion) {
-    let answer = '';
-    let i = 0;
+    let nameList = {};
     
-    participant.sort();
-    completion.sort();
-    
-    while(true) {
-        if (participant[i] !== completion[i]) {
-            answer += participant[i];
-            break;
-        }
-        i++;
+    for (let name of participant) {
+        nameList[name] ? nameList[name]++ : nameList[name] = 1;
     }
-    return answer;
+    
+    for (let name of completion) {
+        nameList[name]--;
+    }
+    
+    for (let i in nameList) {
+        if (nameList[i] !== 0) return i;
+    }
 }
-
 
 /* another solution */
 function solution(participant, completion) {
