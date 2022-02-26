@@ -16,5 +16,5 @@ function solution(answers) {
         if(max === answer[k])
             result.push(k+1);
     }
-    return result;
+    return result
 }
