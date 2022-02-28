@@ -31,7 +31,7 @@ function solution(numbers) {
         result.forEach(res => {
             if (!set.has(res)) {
                 set.add(res);
-                answer += isPrime(res) ? 1 : 0;
+                answer += isPrime(res) ? 1 : 0
             }
         });
     }
