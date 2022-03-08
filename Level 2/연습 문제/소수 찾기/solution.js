@@ -1,40 +1,46 @@
-const permutation = (arr, selectNum) => {
-  let result = [];
-  if (selectNum === 1) return arr.map((v) => [v]);
-
-  arr.forEach((v, idx, arr) => {
-    const fixer = v;
-    const restArr = arr.filter((_, index) => index !== idx);
-    const permuationArr = permutation(restArr, selectNum - 1);
-    const combineFixer = permuationArr.map((v) => [fixer, ...v]);
-    result.push(...combineFixer);
-  });
-  return result;
-};
-
-const isPrime = (num) => {
-    if (num === 1 || num === 0) return false;
-    if (num === 2) return true;
-    for (let i=2; i<num/2 + 1; i++) {
-        if (num % i === 0) return false;
-    }
-    return true;
-};
-
 function solution(numbers) {
-    let answer = 0;
-    const arr = numbers.split('');
-    const set = new Set();
-    
-    for (let i=1; i<=numbers.length; i++) {
-        const result = permutation(arr, i).map(res => +res.join(''));
-        result.forEach(res => {
-            if (!set.has(res)) {
-                set.add(res);
-                answer += isPrime(res) ? 1 : 0;
-            }
-        });
+  let answer = 0;
+  
+  // 순열
+  let arr = numbers.split('');
+  let result = [];
+
+  function permutation(arr, n, bucket) {
+    if (n === 0) {
+      result.push(parseInt(bucket.join('')));
+      return;
     }
-    
-    return answer;
+
+    for (let i = 0; i < arr.length; i++) {
+      let rest = arr.slice();
+      let pick = rest.splice(i, 1);
+      permutation(rest, n - 1, bucket.concat(pick));
+    }
+      
+    return result;
+  }
+
+  for (let i = 0; i < numbers.length; i++) {
+    permutation(arr, i + 1, []);
+  }
+  
+  let num = [...new Set(result)];
+  
+  // 소수
+  function isPrime(num) {
+    if(num === 2) return true;
+    if(num === 0 || num === 1) return false;
+
+    for(let i = 2; i <= Math.floor(Math.sqrt(num)); i++){
+      if(num % i === 0) return false;
+    }
+
+    return true; 
+  }
+  
+  for (let i = 0; i < num.length; i++) {
+    if (isPrime(num[i])) answer++;
+  }
+  
+  return answer;
 }
