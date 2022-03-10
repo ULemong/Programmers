@@ -24,3 +24,52 @@
 #### 입출력 예 #2
 - [0, 1, 1]으로는 소수 [11, 101]를 만들 수 있습니다.
   - 11과 011은 같은 숫자로 취급합니다.
+
+```javascript
+// 순열 구하기
+function getPermutation(arr, n, bucket) {
+    let result = [];
+    
+    if (n === 0) return bucket;
+    
+    for (let i = 0; i < arr.length; i++) {
+        let rest = arr.slice();
+        let pick = rest.splice(i, 1);
+        
+        let permutation = getPermutation(rest, n - 1, bucket.concat(pick));
+        result.push(permutation);
+    }
+    
+    return result;
+}
+
+// 소수 찾기
+function isPrime(num) {
+    if(num === 0 || num === 1) return false;
+    if(num === 2) return true;
+   
+    for(let i = 2; i <= Math.floor(Math.sqrt(num)); i++){
+        if(num % i === 0) return false;
+    }
+
+    return true; 
+}
+
+function solution(numbers) {
+    let answer = 0;
+    let input = numbers.split('').map(Number); // 문자열 정수로 변환 후 배열에 저장
+    let arr = [];
+    
+    for (let i = 1; i <= numbers.length; i++) {
+        getPermutation(input, i, []).flat(i - 1)
+                                    .map(v => arr.push(parseInt(v.join('')))); // 정수로 변환 ex) 01
+    }
+    
+    let newArr = [...new Set(arr)]; // 중복 값 제거    
+    newArr.forEach(v => {
+        if (isPrime(v)) answer++;
+    })
+    
+    return answer;
+}
+```
