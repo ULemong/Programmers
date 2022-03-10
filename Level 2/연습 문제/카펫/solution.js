@@ -1,7 +1,10 @@
 function solution(brown, yellow) {
-    var answer = [];
-    
     let sum = brown + yellow;
     
-    return answer;
+    for (let width = 3; width <= sum; width++) {
+        let height = sum / width;
+        if (sum % width === 0 && width >= height) {
+            if (yellow === (width - 2) * (height - 2)) return [width, height];
+        }
+    }
 }
