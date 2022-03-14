@@ -19,3 +19,18 @@ function solution(people, limit) {
     
     return answer;
 }
+
+/* another solution */
+function solution(people, limit) {
+    let answer = 0;
+    let left = 0;
+    let right = people.length - 1;
+
+    people.sort((x, y) => y - x);
+
+    while (left <= right) {
+        if (people[left++] + people[right] <= limit) right--;
+        answer++;
+    }
+    return answer;
+}
