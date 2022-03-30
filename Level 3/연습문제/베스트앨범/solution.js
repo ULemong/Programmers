@@ -6,7 +6,7 @@ function solution(genres, plays) {
     
     for (let i = 0; i < genres.length; i++) {
         songs.push({'genre': genres[i], 'number': i, 'play': plays[i]});       
-        dic[genres[i]] ? dic[genres[i]] + plays[i] : dic[genres[i]] = plays[i];
+        dic[genres[i]] = dic[genres[i]] ? dic[genres[i]] + plays[i] : plays[i];
     }
  
     for (let genre in dic) sortArr.push([genre, dic[genre]]);
