@@ -1,4 +1,4 @@
 function solution(orders, course) {
-    var answer = [];
+    let answer = [];
     return answer;
 }
