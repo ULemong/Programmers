@@ -1,9 +1,7 @@
 function solution(s) {
-    const arr = s.split(' ');
-    
-    for (let i = 0; i < arr.length; i++) {
-        arr[i] = arr[i][0].toUpperCase() + arr[i].slice(1).toLowerCase()
-    }
-
-    return arr.join(' ');
+    let answer = ''
+    answer = s.split(' ').map(word=> word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()).join(' ')
+    return answer;
 }
+
+// https://thisthat.dev/string-char-at-vs-string-bracket-notation/
