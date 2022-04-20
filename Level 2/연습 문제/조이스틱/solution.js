@@ -16,7 +16,7 @@ function solution(name) {
         while(index < length && name[index] === 'A') index++;
         
         move = Math.min(move, i * 2 + length - index); // min(순서대로 가는 경우, 순서대로 가다가 되돌아가는 경우)  
-                                                       // B->B->B->B->A->A->A->A->A->A->A->B (11), (B->B->B->B B<-B<-B<-B)->D (6+1 = 7) 
+                                                       // B->B->B->B->A->A->A->A->A->A->A-> (11), (B->B->B->B B<-B<-B<-B)->D (6+1 = 7) 
         move = Math.min(move, (length - index) * 2 + i); // min(move, 뒤에부터 먼저 가는 경우)
                                                          // (7), (B->D B<-D)->B->B->B (2+3 = 5)
     }
