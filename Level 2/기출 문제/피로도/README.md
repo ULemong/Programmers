@@ -1,1 +1,1 @@
-[피로도](https://programmers.co.kr/learn/courses/30/lessons/87946)
+- [피로도](https://programmers.co.kr/learn/courses/30/lessons/87946)
