@@ -38,7 +38,7 @@ function solution(files) {
         if(upperCaseA === upperCaseB) return 0; 
     });
     
-    console.log(arr)
+    // console.log(arr)
     // arr.sort((a, b) => parseInt(a[1]) - parseInt(b[1]))
     
     
