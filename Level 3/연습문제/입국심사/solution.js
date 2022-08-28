@@ -1,5 +1,5 @@
 function solution(n, times) {
-    times.sort((a,b) => a-b); 
+    times.sort((a,b) => a-b)
     let left = 0;
     let right = n * times[times.length -1];
     
