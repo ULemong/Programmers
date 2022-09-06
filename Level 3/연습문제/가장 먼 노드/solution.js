@@ -1,5 +1,5 @@
 function solution(n, edge) {
-    const visited = Array.from(Array(n + 1).fill(0));
+    const visited = Array.from(Array(n + 1).fill(0))
     const level = Array.from(Array(n + 1).fill(0));
     
     const bfs = (start, arr) => {
