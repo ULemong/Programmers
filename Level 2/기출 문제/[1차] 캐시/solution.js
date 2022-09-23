@@ -1,5 +1,5 @@
 function solution(cacheSize, cities) {
-  const cache = []
+  const cache = [];
   let time = 0;
 
   if (!cacheSize) return cities.length * 5;
