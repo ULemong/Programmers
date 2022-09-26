@@ -1,35 +1,39 @@
+// solution_1) Object
 function solution(s) {
-    let hash = {};  
-    let arr = s.slice(2, s.length - 2)
-               .split('},{');
-    
-    for (let i of arr) {
-        i = i.split(',');
-        for (let num of i) {
-            hash[num] ? hash[num]++ : hash[num] = 1;
-        }
-    }
-    
-    let hashToArr = [];
-    for (let key in hash) {
-        hashToArr.push([key, hash[key]]);
-    }
+  const answer = [];
+  const obj = {};
 
-    return hashToArr.sort((a, b) => b[1] - a[1])
-                    .map(num => +num[0]);
+  const arr = s.replace(/[{}]/g, "").split(",");
+  arr.forEach((num) => (obj[num] ? obj[num]++ : (obj[num] = 1)));
+
+  for (const num in obj) {
+    answer.push([num, obj[num]]);
+  }
+
+  return answer.sort((a, b) => b[1] - a[1]).map((v) => +v[0]);
 }
 
-/* another solution */
+// solution_2) JSON.parse()
 function solution(s) {
-    let hash = {};  
-    let arr = s.slice(2, s.length - 2)
-               .split('},{');
-    
-    let temp = [];
-    for (let i of arr) {
-        temp.push(i.split(',').map(num => +num));
-    }
-    
-    temp.sort((a, b) => a.length - b.length)
-    return [...new Set(temp.flat())]
+  const arr = JSON.parse(s.replace(/{/g, "[").replace(/}/g, "]"));
+
+  arr.sort((a, b) => a.length - b.length);
+  return [...new Set(arr.flat())];
+}
+
+// solution_3
+function solution(s) {
+  const answer = [];
+
+  s.slice(2, s.length - 2)
+    .split("},{")
+    .map((v) => v.split(",").map((num) => +num))
+    .sort((a, b) => a.length - b.length)
+    .forEach((arr) =>
+      arr.forEach((v) => {
+        if (!answer.includes(v)) answer.push(v);
+      })
+    );
+
+  return answer;
 }
