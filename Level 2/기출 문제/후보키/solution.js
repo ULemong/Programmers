@@ -1,47 +1,86 @@
-function solution(relation) {
-    //1. 가능한 조합을 1개~Attribute개수 만큼 찾는다.
-    //2. 해당 개수의 조합이 키가 될 수 있는지 검사하고, 가능하면 후보키에 추가한다.
-    //3. 단 추가하려고 할 때, 후보키에 있는 값이 자신의 부분 집합이 될 수 있으면 추가하지 않는다.
-    const keys = []
-    const totalAttrCount = relation[0].length
-    const indexList = Array.from(Array(totalAttrCount), (x, index) => index) // [0,1,2,3 ... totalAttrCount-1]
+// 조합
+const getCombination = (arr, selectNumber) => {
+  const results = [];
+  if (selectNumber === 1) return arr.map((el) => [el]);
 
-    //Fn for 2. 해당 조합으로 각 row의 attribute를 모았을 때 중복이 있는지를 반환하는 함수
-    const isUnique = (relation, attrIndexComb) => {
-        let result = Array.from(Array(relation.length), x => '')
-        for (const attrIndex of attrIndexComb) {
-            relation.forEach((row, rowIndex) => result[rowIndex] += row[attrIndex]) //Set를 이용해 중복 검사를 하기 위해 result에 string으로 넣음.
-        }
-        return result.length === [...new Set(result)].length
-    }
+  arr.forEach((fixed, index, origin) => {
+    const rest = origin.slice(index + 1);
+    const combinations = getCombination(rest, selectNumber - 1);
+    const attached = combinations.map((el) => [fixed, ...el]);
 
-    //Fn for 3. keys에 현재 구한 검사할 조합의 부분집합이 존재하는지 반환, 단 keys에 들어있는 각 조합의 크기는 현재 검사할 조합의 크기보다 작다.
-    const isMinimal = (attrComb) => {
-        for (const key of keys) if (key.every(attr => attrComb.includes(attr))) return false
-        return true
-    }
+    results.push(...attached);
+  });
 
-    //가능한 모든 조합을 검사
-    for (let attrCount = 1; attrCount <= totalAttrCount; attrCount++) {
-        const combinations = getCombinations(indexList, attrCount)
-        for (const attrComb of combinations) {
-            if (isMinimal(attrComb) && isUnique(relation, attrComb)) keys.push(attrComb)
-        }
-    }
+  return results;
+};
 
-    return keys.length
+// 유일성
+const checkUniqueness = (relation, combinations) => {
+  // combinations = [
+  //   [ 0 ],          [ 1 ],
+  //   [ 2 ],          [ 3 ],
+  //   [ 0, 1 ],       [ 0, 2 ],
+  //   [ 0, 3 ],       [ 1, 2 ],
+  //   [ 1, 3 ],       [ 2, 3 ],
+  //   [ 0, 1, 2 ],    [ 0, 1, 3 ],
+  //   [ 0, 2, 3 ],    [ 1, 2, 3 ],
+  //   [ 0, 1, 2, 3 ]
+  // ]
+
+  const results = [];
+
+  combinations.forEach((combination) => {
+    const combi = [];
+
+    relation.forEach((rel) => {
+      combi.push(combination.map((combi) => rel[combi]).join(""));
+    });
+
+    if ([...new Set(combi)].length == relation.length)
+      results.push(combination);
+  });
+
+  return results;
+};
+
+// 최소성
+function checkMinimality(combinations) {
+  // combinations = [
+  //   [ 0 ],       [ 0, 1 ],
+  //   [ 0, 2 ],    [ 0, 3 ],
+  //   [ 1, 2 ],    [ 0, 1, 2 ],
+  //   [ 0, 1, 3 ], [ 0, 2, 3 ],
+  //   [ 1, 2, 3 ], [ 0, 1, 2, 3 ]
+  // ]
+
+  const results = [];
+
+  while (combinations.length) {
+    results.push(combinations[0]); // [ [0] ]
+
+    combinations = combinations.reduce((acc, cur) => {
+      const isMinimality = !combinations[0].every((combination) =>
+        cur.includes(combination)
+      );
+
+      if (isMinimality) acc.push(cur);
+
+      return acc; // [ [1, 2], [1, 2, 3] ]
+    }, []);
+  }
+
+  return results.length; // [ [ 0 ], [ 1, 2 ] ]
 }
 
-//Fn for 1. 조합을 반환하는 함수
-const getCombinations = (array, selectNumber) => {
-    const result = [];
-    if (selectNumber === 1) {
-        return array.map((element) => [element]);
-    }
-    array.forEach((fixed, index, origin) => {
-        const restCombinations = getCombinations(origin.slice(index + 1), selectNumber - 1);
-        const attached = restCombinations.map((restCombination) => [fixed, ...restCombination]);
-        result.push(...attached);
-    });
-    return result;
+function solution(relation) {
+  const idxArr = Array.from(Array(relation[0].length), (v, i) => i); // [0, 1, 2, 3]
+
+  let combinations = [];
+
+  for (let i = 0; i < idxArr.length; i++) {
+    combinations.push(...getCombination(idxArr, i + 1)); // 조합의 index 구하기
+  }
+
+  combinations = checkUniqueness(relation, combinations); // 유일성 체크
+  return checkMinimality(combinations); // 최소성 체크
 }
