@@ -1,4 +1,4 @@
-// solution_1 Object
+// solution_1) Object
 function solution(s) {
   const answer = [];
   const obj = {};
