@@ -1,5 +1,5 @@
 function getPermutation(arr, n, bucket) {
-    let result = [];
+    let result = []
 
     if (n === 0) return bucket;
 
