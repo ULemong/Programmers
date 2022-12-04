@@ -29,7 +29,7 @@ function solution(want, number, discount) {
 
 /* another solution */
 function solution(want, number, discount) {
-  var answer = 0;
+  let answer = 0;
   const info = {};
   for (let i = 0; i < number.length; i++) {
     info[`${want[i]}`] = info[`${want[i]}`] || number[i];
