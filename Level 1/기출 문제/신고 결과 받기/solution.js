@@ -39,6 +39,6 @@ function solution(id_list, report, k) {
             good.set(report[0],good.get(report[0])+1||1)
         }
     }
-    let answer = id_list.map(a=>good.get(a)||0)
+    let answer = id_list.map(a => good.get(a) || 0)
     return answer;
 }
