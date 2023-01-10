@@ -1,6 +1,6 @@
 function solution(survey, choices) {
     let answer = '';
-    const indicators = [ ['R', 'T'], ['C', 'F'], ['J', 'M'], ['A', 'N'] ]
+    const indicators = [ ['RT'], ['CF'], ['JM'], ['AN'] ]
     const type = { R: 0, T: 0, C: 0, F: 0, J: 0, M: 0, A: 0, N: 0 }
     
     for (let i = 0; i < survey.length; i++) {
@@ -22,4 +22,22 @@ function solution(survey, choices) {
     }
     
     return answer;
+}
+
+/* another solution */
+function solution(survey, choices) {
+    const MBTI = {};
+    const types = ["RT","CF","JM","AN"];
+
+    types.forEach((type) =>
+        type.split('').forEach((char) => MBTI[char] = 0)
+    )
+
+    choices.forEach((choice, index) => {
+        const [disagree, agree] = survey[index];
+
+        MBTI[choice > 4 ? agree : disagree] += Math.abs(choice - 4);
+    });
+
+    return types.map(([a, b]) => MBTI[b] > MBTI[a] ? b : a).join("");
 }
