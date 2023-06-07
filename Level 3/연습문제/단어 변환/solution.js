@@ -27,3 +27,30 @@ const isConnected = (str1, str2) => {
   
   return count === 1 ? true : false;
 }
+
+/* another solution */
+const diffOne = function(wordFirst, wordSecond) {
+    let count = 0
+    for (let i = 0; i < wordFirst.length; i++) {
+        if (wordFirst[i] !== wordSecond[i]) {
+            count += 1
+            if (count >= 2) return false
+        }
+
+    }
+    return true
+}
+
+const solution = function(begin, target, words) {
+    if (!words.includes(target)) return 0
+    let arr = [[begin, 0]]
+    while (arr) {
+        let [a, c] = arr.shift()
+        for (const word of words) {
+            if (diffOne(a, word)) {
+                if (a === target) return c
+                else arr.push([word, c + 1])
+            }
+        }
+    }
+}
