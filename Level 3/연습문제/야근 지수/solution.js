@@ -20,3 +20,11 @@ function solution(n, works) {
 }
 
 /* another solution */
+const noOvertime = (no, works) => {
+    while ( no > 0 ) {
+        works.sort((a,b) => b-a);
+        works[0] -= 1;
+        no--;
+    }
+    return works.map(a => a*a).reduce((a,b) => a+b);
+}
