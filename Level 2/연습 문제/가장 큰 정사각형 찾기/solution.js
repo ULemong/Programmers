@@ -1,5 +1,4 @@
-function solution(board)
-{
+function solution(board) {
     let answer = 0;
     
     // board.unshift(new Array(board[0].length).fill(0));
